@@ -1,0 +1,31 @@
+.md-form{
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+#inputMDEx:focus{
+    color: #177C07;
+}
+.md-form input:not([type]):focus:not([readonly])+label, .md-form input[type=date]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=datetime]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=email]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=number]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=password]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=search-md]:focus:not([readonly])+label, .md-form input[type=search]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=tel]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=text]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=time]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=url]:not(.browser-default):focus:not([readonly])+label, .md-form textarea.md-textarea:focus:not([readonly])+label {
+    color: #177C07;
+}
+.md-form input:not([type]):focus:not([readonly]), .md-form input[type=date]:not(.browser-default):focus:not([readonly]), .md-form input[type=datetime-local]:not(.browser-default):focus:not([readonly]), .md-form input[type=datetime]:not(.browser-default):focus:not([readonly]), .md-form input[type=email]:not(.browser-default):focus:not([readonly]), .md-form input[type=number]:not(.browser-default):focus:not([readonly]), .md-form input[type=password]:not(.browser-default):focus:not([readonly]), .md-form input[type=search-md]:focus:not([readonly]), .md-form input[type=search]:not(.browser-default):focus:not([readonly]), .md-form input[type=tel]:not(.browser-default):focus:not([readonly]), .md-form input[type=text]:not(.browser-default):focus:not([readonly]), .md-form input[type=time]:not(.browser-default):focus:not([readonly]), .md-form input[type=url]:not(.browser-default):focus:not([readonly]), .md-form textarea.md-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #177C07;
+    box-shadow: 0 1px 0 0 #177C07;
+}
+.btn{
+    margin: .5px;
+    border-radius: 10px;
+    background-color: #177C07;
+    color: aliceblue;
+}
+.header-text{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.blue-gradient {
+    background: linear-gradient(40deg,#45cafc,#177C07)!important;
+}
+.btn-outline-white{
+    margin-top: 5px;
+}
