@@ -1,0 +1,19 @@
+{
+  "name": "summarizeit",
+  "version": "1.0.0",
+  "description": "Summarization App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adaglory/summarizeIT.git"
+  },
+  "author": "Ajiboye Abraham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adaglory/summarizeIT/issues"
+  },
+  "homepage": "https://github.com/adaglory/summarizeIT#readme"
+}
