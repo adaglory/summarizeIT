@@ -5,156 +5,111 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="">
     <title>SummarizeIT</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link href=" https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="css/new.css" rel="stylesheet">
 
-<body>
-    <nav class="navbar navbar-inverse navbar-expand-xl navbar-dark">
-        <div class="navbar-header d-flex col">
-            <a class="navbar-brand" href="#"><i class="fa fa-cube"></i>Summarize<b>IT</b></a>
-            <button type="button" data-target="#navbarCollapse" data-toggle="collapse"
-                class="navbar-toggle navbar-toggler ml-auto">
-                <span class="navbar-toggler-icon"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <!-- Collection of nav links, forms, and other content for toggling -->
-        <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
-            <form class="navbar-form form-inline">
-                <div class="input-group search-box">
-                    <input type="text" id="search" class="form-control" placeholder="Search here...">
-                    <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+    <!-- Bootstrap Core CSS -->
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Menu CSS -->
+    <link href="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link href="css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/dash-style.css" rel="stylesheet">
+    <link href="css/dash-new.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="css/colors/default.css" id="theme" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <nav class="navbar navbar-default navbar-static-top m-b-0">
+            <div class="navbar-header">
+                <div class="top-left-part">
+                    <!-- Logo -->
+                    <a class="logo" href="index.html">
+                        <!-- Logo icon image, you can use font-icon also -->
+                        
+                        <!--This is light logo text--><img src="./img/Group1.png" alt="home" class="light-logo" />
+                      </a>
                 </div>
-            </form>
-            <ul class="nav navbar-nav navbar-right ml-auto">
-                <li class="nav-item active"><a href="#" class="nav-link"><i class="fa fa-home"></i><span>Home</span></a>
-                </li>
-                <li class="nav-item"><a href="#" class="nav-link"><i
-                            class="fa fa-envelope"></i><span>Messages</span></a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i
-                            class="fa fa-bell"></i><span>Notifications</span></a></li>
-                <li class="nav-item dropdown">
-                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img
-                            src="img/pngguru.com-id-azkvw.png" class="avatar" alt="Avatar"> User Name <b
-                            class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a></li>
-                        <li><a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a></li>
-                        <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a></li>
-                        <li class="divider dropdown-divider"></li>
-                        <li><a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h2>Document <b>History</b></h2>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="search-box">
-                                    <div class="input-group">
-                                        <input type="text" id="search" class="form-control"
-                                            placeholder="Search by Name">
-                                        <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th style="width: 22%;">Book Title</th>
-                                <th style="width: 22%;">Summary</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Thomas Hardy</td>
-                                <td>89 Chiaroscuro Rd.</td>
-                                <td>
-                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Maria Anders</td>
-                                <td>Obere Str. 57</td>
-                                <td>
-                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Fran Wilson</td>
-                                <td>C/ Araquil, 67</td>
-                                <td>
-                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Dominique Perrier</td>
-                                <td>25, rue Lauriston</td>
-                                <td>
-                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Martin Blank</td>
-                                <td>Via Monte Bianco 34</td>
-                                <td>
-                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE254;</i></a>
-                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
-                                            class="material-icons">&#xE872;</i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <!-- /Logo -->
+                <ul class="nav navbar-top-links navbar-right pull-right">
+                    <li>
+                        <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
+                            <input type="text" placeholder="Search..." class="form-control"> <a href=""><i class="fa fa-search"></i></a> </form>
+                    </li>
+                    <li>
+                        <a class="profile-pic" href="#"> <img src="./img/pngguru.com-id-azkvw.png" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Username</b></a>
+                    </li>
+                </ul>
             </div>
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-header">
-                        <button class="btn" data-toggle="modal" data-target="#myModal"> <span
-                                class="mdi mdi-plus"></span> Upload Document</button><span class="p-text">Welcome User
-                            Name</span>
-                        <!-- The Modal -->
-                        <div class="modal" id="myModal">
+            <!-- /.navbar-header -->
+            <!-- /.navbar-top-links -->
+            <!-- /.navbar-static-side -->
+        </nav>
+        <!-- End Top Navigation -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav slimscrollsidebar">
+                <div class="sidebar-head">
+                    <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
+                </div>
+                <ul class="nav" id="side-menu">
+                    <li style="padding: 70px 0 0;">
+                        <a href="index.html" class="waves-effect"><i class="fas fa-home fa-fw" aria-hidden="true"></i>Home</a>
+                    </li>
+                    <li>
+                        <a href="" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a>
+                    </li>
+                    <li>
+                        <a href="" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>History</a>
+                    </li>
+                    <li>
+                        <a href="" class="waves-effect"><i class="fas fa-cog fa-fw" aria-hidden="true"></i>Settings</a>
+                    </li>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Dashboard</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <a href="" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light" data-toggle="modal" data-target="#myModal">Upload Document</a>
+                         <!-- The Modal -->
+                         <div class="modal" id="myModal">
                             <div class="modal-dialog">
                                 <div class="modal-content">
 
@@ -173,102 +128,102 @@
 
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                        <button type="button" class=" btn-danger" >Abstract</button>
-                                        <button type="button" class=" btn-danger" >Summary</button>
+                                        <button type="button" class=" btn-doc" >Abstract</button>
+                                        <button type="button" class=" btn-doc" >Summary</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <h3 class="h-text">Related Search</h3>
-                        <a href="">
-                            <div class="card card-content">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <img class="card-img"
-                                            src="http://www.bookofideas.co.uk/files/book/vol2/book-of-ideas-04-h.jpg">
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <strong>
-                                            <p> Author: Ernest Ernest</p>
-                                        </strong>
-                                    </div>
-                                </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Document History</h3> 
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for titles" title="Type in a name">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Username</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Deshmukh</td>
+                                            <td>Prohaska</td>
+                                            <td>@Genelia</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Deshmukh</td>
+                                            <td>Gaylord</td>
+                                            <td>@Ritesh</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Sanghani</td>
+                                            <td>Gusikowski</td>
+                                            <td>@Govinda</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Roshan</td>
+                                            <td>Rogahn</td>
+                                            <td>@Hritik</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Joshi</td>
+                                            <td>Hickle</td>
+                                            <td>@Maruti</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Nigam</td>
+                                            <td>Eichmann</td>
+                                            <td>@Sonu</td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </a>
-                        <a href="">
-                            <div class="card card-content">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <img class="card-img"
-                                            src="http://www.bookofideas.co.uk/files/book/vol2/book-of-ideas-04-h.jpg">
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <strong>
-                                            <p> Author: Ernest Ernest</p>
-                                        </strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="">
-                            <div class="card card-content">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <img class="card-img"
-                                            src="http://www.bookofideas.co.uk/files/book/vol2/book-of-ideas-04-h.jpg">
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <strong>
-                                            <p> Author: Ernest Ernest</p>
-                                        </strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="">
-                            <div class="card card-content">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <img class="card-img"
-                                            src="http://www.bookofideas.co.uk/files/book/vol2/book-of-ideas-04-h.jpg">
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <strong>
-                                            <p> Author: Ernest Ernest</p>
-                                        </strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                        </div>
+                            
                     </div>
                 </div>
             </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2019 &copy; SummarizeIT.com </footer>
         </div>
-
+        <!-- ============================================================== -->
+        <!-- End Page Content -->
+        <!-- ============================================================== -->
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // Activate tooltips
-            $('[data-toggle="tooltip"]').tooltip();
-
-            // Filter table rows based on searched term
-            $("#search").on("keyup", function () {
-                var term = $(this).val().toLowerCase();
-                $("table tbody tr").each(function () {
-                    $row = $(this);
-                    var name = $row.find("td:nth-child(2)").text().toLowerCase();
-                    console.log(name);
-                    if (name.search(term) < 0) {
-                        $row.hide();
-                    } else {
-                        $row.show();
-                    }
-                });
-            });
-        });
-    </script>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="js/custom.min.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,53 @@
+.logo img{
+    width: 70%;
+}
+.top-left-part a {
+color: #fff;
+    line-height: 60px;
+    font-size: 18px;
+    padding-left: 15px;
+    text-transform: uppercase;
+}
+.btn-danger{
+    background: #177c07;
+    border-style: none;
+}
+.btn-danger:hover{
+    background: #fff; 
+    color: #177c07;
+    border-style: none;
+}
+.btn-danger:focus{
+    background: #177c07;
+    border-style: none; 
+}
+.modal-body{
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+}
+.file-plus{
+    font-size: 100px;
+    color: #c4c4c4;
+    border: 1px dashed #c4c4c4;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+.btn-doc{
+    background: none;
+    border: 1px solid #177C07;
+    color: #177C07;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 10px;
+}
+#myInput {
+    background-image: url('./icons/icons8-search-26.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+  }
