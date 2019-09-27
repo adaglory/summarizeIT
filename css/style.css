@@ -1,3 +1,7 @@
+body{
+    padding: 0;
+    margin: 0;
+}
 .md-form{
     margin-top: .5rem;
     margin-bottom: .5rem;
@@ -28,4 +32,18 @@
 }
 .btn-outline-white{
     margin-top: 5px;
+}
+.main-content{
+    margin-top: 150px;
+}
+.search-card{
+    background: #fff;
+    border: 1px solid #c4c4c4;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    
+}
+.row :hover{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
