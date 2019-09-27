@@ -127,6 +127,11 @@ body {
   margin: 0;
   font-family: "Roboto", sans-serif;
 }
+  .main-content {
+    display: flex;
+    flex-direction: row;
+  }
+
 .left-side {
   background: #177c07 url("../img/auto-sum4.png") no-repeat;
   width: 489px;

@@ -51,3 +51,16 @@ color: #fff;
     border: 1px solid #ddd;
     margin-bottom: 12px;
   }
+  .table-head{
+    background-color: #f1f1f1;      
+  }
+  .form-material .form-control, .form-material .form-control.focus, .form-material .form-control:focus {
+   background-image: linear-gradient(#177C07,#177C07),linear-gradient(rgba(120,130,140,.13),rgba(120,130,140,.13)); 
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    float: none;
+  }
+  .user-bg .overlay-box {
+      background: #177C07;
+  }
