@@ -34,20 +34,10 @@ let UserSchema = new Schema({
         required: true,
         max: 100
     },
-    
-    facebook: {
-        type: String,
-        required: false,
-        max: 100
-    },
-    gmail: {
-        type: String,
-        required: false,
-        max: 100
-    },
+
     token:  {
             type: String,
-            required: true
+            
         }
     
 });
@@ -67,9 +57,12 @@ UserSchema.pre('save', async function (next) {
 UserSchema.methods.generateAuthToken = async function() {
     // Generate an auth token for the user
      try{ 
+         console.log('here')
         const user = this;
         const token = jwt.sign({_id: user._id}, process.env.JWT_KEY);
+        console.log(token)
         user.token = token;
+        console.log(user.token)
         await user.save();
         return token;
     }
