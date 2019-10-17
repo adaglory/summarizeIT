@@ -41,15 +41,32 @@ color: #fff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     margin: 10px;
 }
-#myInput {
-    background-image: url('./icons/icons8-search-26.png');
-    background-position: 10px 10px;
-    background-repeat: no-repeat;
-    width: 100%;
-    font-size: 16px;
-    padding: 12px 20px 12px 40px;
-    border: 1px solid #ddd;
-    margin-bottom: 12px;
+form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  form.example button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #177C07;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+  
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
   }
   .table-head{
     background-color: #f1f1f1;      

@@ -110,3 +110,19 @@ body {
   margin-left: 20px;
   cursor: pointer;
 }
+.error-body{
+  background: url(../img/auto-sum4.png);
+  height: 100vh;
+}
+.error-template {
+  margin-top: 50px;
+  padding: 40px 15px;
+  text-align: center;
+}
+.error-actions {
+  margin-top:15px;
+  margin-bottom:15px;
+}
+.error-actions .btn {
+   margin-right:10px; 
+  }
