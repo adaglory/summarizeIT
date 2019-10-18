@@ -1,16 +1,20 @@
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser')
-const User = require('./models/user.model')
-const token = require('./functions/token')
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const User = require('./models/user.model');
+const token = require('./functions/token');
 const querystring = require('querystring');    
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static('public'))
+app.use(express.static('public'));
+app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
 const port = 3000;
 app.set('view engine', 'ejs');
 
+//initialize session
+let mySession
 //include  database connection
 require('./db/db');
 response = {};
@@ -18,16 +22,14 @@ response = {};
 app.get("/", function(req,res){
     res.render('index',{title: 'SummarizeIT'});
 });
-app.get("/profile", function(req,res){
-    res.render('profile',{title: 'SummarizeIT - Profile'});
-});
+
 app.get("/signup", function(req,res){
     res.render('signup',{title: 'SummarizeIT- Signup'});
 });
 app.get("/signin", function(req,res){
     
     if(req.query){
-        res.render('signin',{title: 'SummarizeIT- Signin', message: req.query.message});
+        res.render('signin',{title: 'SummarizeIT- Signin', message: req.query.message, success: req.query.success});
     }else{
         res.render('signin',{title: 'SummarizeIT- Signin'});
     }
@@ -35,14 +37,24 @@ app.get("/signin", function(req,res){
 });
 
 app.get("/profile", function(req,res){
-    res.render('profile',{title: 'SummarizeIT- Profile'});
+    mySession = req.session;
+    if(mySession.email){
+        res.render('profile',{title: 'SummarizeIT- Profile', username: mySession.username, email: mySession.email});
+    }else{
+        const query = querystring.stringify({message:'Login First',success:false});
+                res.redirect('/signin?' + query);
+    }
+    
 });
 app.get("/dashboard", function(req,res){
-    if(req.query.status === 'success'){
-        res.render('dashboard',{title: 'SummarizeIT- Dashboard'});
+    mySession = req.session;
+    if(mySession.email){
+        res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email});
     }else{
-        
+        const query = querystring.stringify({message:'Login First',success:false});
+                res.redirect('/signin?' + query);
     }
+    
         
     
     
@@ -59,7 +71,7 @@ app.post("/signup", async function(req,res){
             
             
             if(register){
-                const query = querystring.stringify({message:'Register Successful',status:'success'});
+                const query = querystring.stringify({message:'Register Successful',success:true});
                 res.redirect('/signin?' + query);
             }
         }catch(err){
@@ -69,10 +81,10 @@ app.post("/signup", async function(req,res){
                     title: "Duplicate Email",
                     detail: "There is already a user with the email '"+req.body.email+"'"
                   };
-                  res.render('signup',{title: 'SummarizeIT- Signup', message:errorContent.detail, status:'fail'})
+                  res.render('signup',{title: 'SummarizeIT- Signup', message:errorContent.detail, success:false})
                 };
               }else{
-                res.render('signup',{title: 'SummarizeIT- Signup', message:error, status:'fail'})
+                res.render('signup',{title: 'SummarizeIT- Signup', message:error, success:false})
               }
             
         }
@@ -82,6 +94,7 @@ app.post("/signup", async function(req,res){
 });
 
 app.post("/signin", async function(req,res){
+
     if (req.body) {
         try {
           const {
@@ -94,10 +107,13 @@ app.post("/signin", async function(req,res){
           if(user){
               //generate token
               token.update(user._id);
-              const query = querystring.stringify({status:'success'});
-                res.redirect('/dashboard?' + query);
+              let mySession = req.session;
+              mySession.username = user.username;
+              mySession.email = user.email;
+              mySession.userid = user._id;
+              res.redirect('/dashboard');
           }else{
-            res.render('signin',{title: 'SummarizeIT- Signin', message:'Email or password incorrect', status:'fail'})
+            res.render('signin',{title: 'SummarizeIT- Signin', message:'Email or password incorrect', success:false})
           }
           
     
@@ -110,6 +126,32 @@ app.post("/signin", async function(req,res){
 console.log(err)
         }
         }
+});
+
+app.post("/profile", async function(req,res){
+    if (req.body) {
+        try {
+            let mySession = req.session;
+            console.log(req.session)
+            record = req.body;
+            console.log(mySession.userid)
+            let updateUser = await User.findByIdAndUpdate(mySession.userid,record);
+            if(updateUser){
+                res.render('profile',{title: 'SummarizeIT- Profile', username: mySession.username, email: mySession.email, message:'Profile Updated Successfully', success:true})
+            }else{
+                res.render('profile',{title: 'SummarizeIT- Profile', username: mySession.username, email: mySession.email, message:'Updated Failed', success:false})
+            }
+    
+        }catch(err){ 
+            var errorContent = {
+                title: "Duplicate Email",
+                detail: "There is already a user with the email '"+req.body.email+"'"
+              };
+              res.render('profile',{title: 'SummarizeIT- Profile',username: mySession.username, email: mySession.email,  message:errorContent.detail, success:false})
+                console.log(err)   
+            
+        }
+    }
 });
 
 

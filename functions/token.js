@@ -9,6 +9,7 @@ module.exports = {
             const token = jwt.sign({userid}, "summarizeauthconfigkey");
             updatetoken = await User.findByIdAndUpdate(userid,{token:token})
             
+            
         }
         catch(err){
             return console.log(err);

@@ -34,7 +34,26 @@ let UserSchema = new Schema({
         required: true,
         max: 100
     },
-
+    fullname:{
+        type: String,
+        required: false,
+        max: 100,
+    },
+    phone:{
+        type: String,
+        required: false,
+        max: 100
+    },
+    status:{
+        type: String,
+        required: false,
+        max: 100
+    },
+    country:{
+        type: String,
+        required: false,
+        max: 100
+    },
     token:  {
             type: String,
             
