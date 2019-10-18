@@ -32,11 +32,11 @@
     
             </div>
             <form class="box" method = 'post' action ='/signin'>
-              <%if(locals.success === true){%>
+              <%if(locals.success === 'true'){%>
                 <div class="alert alert-success">
                     <strong><%=message %></strong>
                 </div> 
-              <%}else if(locals.success ===false){%>
+              <%}else if(locals.success === 'false'){%>
                 <div class="alert alert-danger">
                   <strong><%=message %></strong>
               </div>

@@ -29,6 +29,7 @@ app.get("/signup", function(req,res){
 app.get("/signin", function(req,res){
     
     if(req.query){
+        console.log(req.query)
         res.render('signin',{title: 'SummarizeIT- Signin', message: req.query.message, success: req.query.success});
     }else{
         res.render('signin',{title: 'SummarizeIT- Signin'});
@@ -55,7 +56,8 @@ app.get("/dashboard", function(req,res){
                 res.redirect('/signin?' + query);
     }
     
-        
+       
+
     
     
 });
