@@ -6,7 +6,7 @@ module.exports = {
     update: async (userid) => {
    
         try{ 
-            const token = jwt.sign({userid}, process.env.JWT_KEY);
+            const token = jwt.sign({userid}, "summarizeauthconfigkey");
             updatetoken = await User.findByIdAndUpdate(userid,{token:token})
             
         }
