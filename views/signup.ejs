@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title><%= title %></title>
+  <!-- Links -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+    integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
+    crossorigin="anonymous"></script>
+  <!--Font awesome-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class=" main-content">
+    <div class="left-side">
+      <h3 class="header-text">Hi, There</h3>
+      <p class="p-text">you already have an account with us?</p>
+      <p class="p-text">click the sign in button</p>
+      <a href="/signin"><button class="btn">SIGN IN</button></a>
+    </div>
+    <div class="right-side container">
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+              <h2 class="right-side-header">CREATE ACCOUNT</h2>
+              <div>
+                <ul>
+                  <li style="color: #3b5998"><i class="fab fa-facebook-square"></i></li>
+                  <li style="color: #ea4335"><i class="fab fa-google-plus-square"></i></li>
+                  <li style="color: #0e76a8"> <i class="fab fa-linkedin"></i></li>
+                </ul>
+                <div class="mt-5">
+                  <hr />
+                  <p class="hr-text">Or Use</p>
+        
+                </div>
+                <form class="box" action = "/signup" method = "post">
+                  <div class="form-group">
+                      <%if(locals.message){%>
+                        <div class="alert alert-danger">
+                            <strong><%=message %></strong>
+                        </div> 
+                      <%}%>
+                    <input type="email" name = "email"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  </div>
+                  <div class="form-group">
+                      <input type ="text" name = "username" class="form-control" id="exampleInputText1" aria-describedby="textlHelp" placeholder="Enter username">
+                    </div>
+                  <div class="form-group">
+                    <input type="password" name = "password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+                  <button type="submit" name = "signup" class="btn btn-primary">SIGN UP</button>
+                </form> 
+               
+          </div>
+          </div>
+      
+      </div>
+    </div>
+
+  </div>
+
+
+
+</body>
+
+</html>

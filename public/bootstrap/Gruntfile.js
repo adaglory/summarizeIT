@@ -18,16 +18,16 @@ module.exports = function (grunt) {
   var fs = require('fs');
   var path = require('path');
   var npmShrinkwrap = require('npm-shrinkwrap');
-  var generateGlyphiconsData = require('./grunt/bs-glyphicons-data-generator.js');
-  var BsLessdocParser = require('./grunt/bs-lessdoc-parser.js');
+  var generateGlyphiconsData = require('./grunt/bs-glyphicons-data-generator.js.js');
+  var BsLessdocParser = require('./grunt/bs-lessdoc-parser.js.js');
   var getLessVarsData = function () {
     var filePath = path.join(__dirname, 'less/variables.less');
     var fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });
     var parser = new BsLessdocParser(fileContent);
     return { sections: parser.parseFile() };
   };
-  var generateRawFiles = require('./grunt/bs-raw-files-generator.js');
-  var generateCommonJSModule = require('./grunt/bs-commonjs-generator.js');
+  var generateRawFiles = require('./grunt/bs-raw-files-generator.js.js');
+  var generateCommonJSModule = require('./grunt/bs-commonjs-generator.js.js');
   var configBridge = grunt.file.readJSON('./grunt/configBridge.json', { encoding: 'utf8' });
 
   Object.keys(configBridge.paths).forEach(function (key) {
