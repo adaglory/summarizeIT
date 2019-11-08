@@ -83,14 +83,23 @@
 
         <!-- Content -->
         <div class="card-body text-white text-center py-5 px-5 my-5">
-
+          <form action ='/summarize' method = "post">
             <div class="form-group shadow-textarea">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="18" placeholder="Copy and paste text here to summarize"></textarea>
+                <%if(locals.summarize === 'true'){%>
+                  <textarea name="text" class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="18" placeholder="<%=summary %>"></textarea>
+                  <button type ="submit"  name = "Summarize"  class="btn btn-outline-white btn-lg" disabled>
+                      Summarize IT
+                    </button>
+                <%}else{%>
+                  <<textarea name="text" class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="18" placeholder="Copy and paste text here to summarize"></textarea>
+                  <button type ="submit"  name = "Summarize"  class="btn btn-outline-white btn-lg">
+                      Summarize IT
+                    </button>
+                <%}%>
+                
               </div>
-          <a target="_blank" href="" class="btn btn-outline-white btn-lg">
-            Summarize It
-          </a>
-
+          
+          </form>
         </div>
         <!-- Content -->
       </section>

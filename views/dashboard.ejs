@@ -83,7 +83,7 @@
                 </div>
                 <ul class="nav" id="side-menu">
                     <li style="padding: 70px 0 0;">
-                        <a href="dashboard.html" class="waves-effect"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Home</a>
+                        <a href="/dashboard" class="waves-effect"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Home</a>
                     </li>
                     <li>
                         <a href="/profile" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a>
@@ -116,21 +116,27 @@
 
                                     <!-- Modal Header -->
                                     <div class="modal-header">
+                                    
                                         <h4 class="modal-title">Upload Document to summarize</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                
                                     </div>
 
                                     <!-- Modal body -->
                                     <div class="modal-body">
-                                        <i class="fa fa-plus file-plus"></i>
+                                    <form action="/upload" method="post" enctype="multipart/form-data">
+                                    <i class="fa fa-plus file-plus"></i>
                                        <strong> <p>Drag file to upload</p></strong>
+                                       <input type = 'file' name = 'doc' id = 'pdfdoc'>
                                        <em><p>supported formats .pdf, .txt</p></em>
                                     </div>
 
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                        <button type="button" class=" btn-doc" >Abstract</button>
-                                        <button type="button" class=" btn-doc" >Summary</button>
+                                    
+                                        <button type="submit" name="abstract" class=" btn-doc" >Abstract</button>
+                                        <button type="submit" name="summary" class=" btn-doc" >Summary</button>
+                                    </form>
                                     </div>
                                 </div>
                             </div>
@@ -141,6 +147,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
+                                <%if(locals.upload === 'true'){%>
+                                    <div class="alert alert-success">
+                                        <strong><%=uploadMessage %></strong>
+                                    </div> 
+                                  <%}else if(locals.upload === 'false'){%>
+                                    <div class="alert alert-danger">
+                                      <strong><%=uploadMessage %></strong>
+                                  </div>
+                                  <%}%>
                             <h3 class="box-title">Document History</h3> 
                             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for titles" title="Type in a name">
                             <div class="table-responsive">
@@ -155,48 +170,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        
+                                        <% for(let i = 0; i < files.length; i++) { %>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Deshmukh</td>
-                                            <td>Prohaska</td>
-                                            <td>@Genelia</td>
-                                            
+                                            <td><%= i+1 %></td>
+                                            <td><%= files[i].filename %></td> 
+                                            <td><%= files[i].filename %></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Deshmukh</td>
-                                            <td>Gaylord</td>
-                                            <td>@Ritesh</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Sanghani</td>
-                                            <td>Gusikowski</td>
-                                            <td>@Govinda</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Roshan</td>
-                                            <td>Rogahn</td>
-                                            <td>@Hritik</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Joshi</td>
-                                            <td>Hickle</td>
-                                            <td>@Maruti</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Nigam</td>
-                                            <td>Eichmann</td>
-                                            <td>@Sonu</td>
-                                            
-                                        </tr>
+                                        <% } %>
+                                     
+                                        
                                     </tbody>
                                 </table>
                             </div>

@@ -3,8 +3,15 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const User = require('./models/user.model');
+const Uploads = require('./models/files.model');
 const token = require('./functions/token');
 const querystring = require('querystring');    
+const deepai = require('deepai'); // OR include deepai.min.js as a script tag in your HTML
+deepai.setApiKey('6d053c08-8a44-43eb-9d88-e7d44f577ec6');
+var formidable = require('formidable');
+var request = require('request');
+var fs = require('fs');
+var path = require('path');
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
@@ -47,10 +54,12 @@ app.get("/profile", function(req,res){
     }
     
 });
-app.get("/dashboard", function(req,res){
-    mySession = req.session;
+app.get("/dashboard", async function(req,res){
+    let mySession = req.session;
     if(mySession.email){
-        res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email});
+        let myUploads = await Uploads.find({userid:mySession.userid});
+        console.log(myUploads)
+        res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, files:myUploads});
     }else{
         const query = querystring.stringify({message:'Login First',success:false});
                 res.redirect('/signin?' + query);
@@ -105,8 +114,8 @@ app.post("/signin", async function(req,res){
           } = req.body //pass request body onto email and password variables.
           //authenticate influencer with findByCredentials functions defined in influencer.model
           const user = await User.findByCredentials(email, password)
-         
-          if(user){
+          
+          if(user.email !== undefined){
               //generate token
               token.update(user._id);
               let mySession = req.session;
@@ -115,7 +124,7 @@ app.post("/signin", async function(req,res){
               mySession.userid = user._id;
               res.redirect('/dashboard');
           }else{
-            res.render('signin',{title: 'SummarizeIT- Signin', message:'Email or password incorrect', success:false})
+            res.render('signin',{title: 'SummarizeIT- Signin', message:'Email or password incorrect', success:'false'})
           }
           
     
@@ -150,6 +159,74 @@ app.post("/profile", async function(req,res){
                 detail: "There is already a user with the email '"+req.body.email+"'"
               };
               res.render('profile',{title: 'SummarizeIT- Profile',username: mySession.username, email: mySession.email,  message:errorContent.detail, success:false})
+                console.log(err)   
+            
+        }
+    }
+});
+
+
+app.post("/summarize", async function(req,res){
+    if (req.body) {
+        try {    
+            let text = req.body.text
+                deepai.setApiKey('6d053c08-8a44-43eb-9d88-e7d44f577ec6');
+                var resp = await deepai.callStandardApi("summarization", {
+                    text: text,
+            });
+        
+            res.render('index',{title: 'SummarizeIT', summary:resp.output, summarize:'true'})
+    
+        }catch(err){ 
+            
+                console.log(err)   
+            
+        }
+    }
+});
+
+app.post("/upload", async function(req,res){
+    if (req.body) {
+        try {    
+            let mySession = req.session;
+            console.log(req.session)
+            var form = new formidable.IncomingForm();
+            let validFiles = ['.pdf','.txt'];
+            
+            form.parse(req, async function (err, fields, files) {
+            console.log(files)
+            ext = path.extname(files.doc.name).toLowerCase();
+            console.log(ext)
+            if(!validFiles.includes(ext)){
+                res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, upload:'false', uploadMessage: 'Invalid upload file. Only pdf and txt formats are allowed'});
+            }else{
+                var oldpath = files.doc.path;
+                // Example posting file picker input text (Browser only):
+                link = "https://www.thepolyglotdeveloper.com/2017/10/consume-remote-api-data-nodejs-application/"
+                url = 'http://api.meaningcloud.com/summarization-1.0?key=7c13bba3611b2cd5f4342f1fd9de1d46&url='+link+'&sentences=5'
+                console.log(url)
+                request(url, function (error, response, body) {
+                  console.log('error:', error); // Print the error if one occurred
+                  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+                  console.log('body:', body); // Print the HTML for the Google homepage.
+                });
+               
+
+                // var newpath = './files/' + files.doc.name;
+                // fs.rename(oldpath, newpath, async function (err) {
+                //     if (err) throw err;
+                //     let newFile = new Uploads;
+                //     newFile.userid = mySession.userid;
+                //     newFile.filename = files.doc.name;
+                //     await newFile.save()
+                //     res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, upload:'true', uploadMessage: 'Success.'});
+                // });
+            }
+            
+        });
+    
+        }catch(err){ 
+            
                 console.log(err)   
             
         }
