@@ -1,0 +1,214 @@
+/* site wide styles */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.6em;
+  background: #f9f9f9;
+}
+img{
+  width: 100%;
+}
+
+.wrapper{
+  max-width: 100vw;
+  margin: 0 50px;
+  padding: 2% 10%;
+}
+/* classes on the page from top to bottom */
+
+/* head part */
+.top{
+  background: url("images/main-doc.jpg") no-repeat fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+.main-header{
+  background-color: rgba(255,255,255,0.5);
+  margin-bottom: 5%;
+  border-bottom: 10px solid rgba(255,255,255,0.6);
+}
+.flex-head{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* height: 100px; */
+}
+.branding h2{
+  color:#b50d10;
+  font-family: "Montserrat-Bold";
+  font-size: 2.5rem;
+}
+.navigation{
+  margin-right: 5px;
+}
+.navigation ul{
+  margin:0;
+  padding:0;
+  list-style: none;
+}
+
+.navigation ul li{
+    display:inline;
+    margin-left: 15px;
+}
+
+.navigation ul li a{
+  color: #004a7c;
+  text-decoration: none;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.navigation ul li a:hover{
+  border-bottom: 2px solid #30a0e0;
+}
+#home{
+  height: 500px;
+  width: 100%;
+  background-image: linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(4,43,20,0.15));
+  margin-top: 20px;
+  /* border: 1px solid black; */
+
+}
+
+#showcase{
+  width:100%;
+  height:600px;
+  /* border: 3px solid goldenrod; */
+  text-align: center;
+  margin: 10% 0;
+  padding-bottom: 3%;
+}
+#showcase h2{
+  font-family: "Montserrat-Bold";
+  font-size: 4rem;
+  line-height: 1.5;
+  color: #fff;
+}
+.image-container{
+  width:100%;
+  height:595px;
+}
+.showcase-image1{
+  width:100%;
+  height:100%;
+  background: url("images/doctor-woman.jpg") no-repeat fixed;
+  background-size: cover;
+  background-position: center;
+}
+.showcase-image2{
+  width:100%;
+  height:100%;
+  background: url("images/pregnant.jpg") no-repeat fixed;
+  background-size: cover;
+  background-position: center;
+}
+.showcase-image3{
+  width:100%;
+  height:100%;
+  background: url("images/live-heart.jpg") no-repeat fixed;
+  background-size: cover;
+  background-position: center;
+}
+.showcase-image4{
+  width:100%;
+  height:100%;
+  color:#FFFFFF;
+  background: url("images/dentist.jpg") no-repeat fixed;
+  background-size: cover;
+  background-position: center;
+}
+.showcase-image5{
+  width:100%;
+  height:100%;
+  background: url("images/test.jpg") no-repeat fixed;
+  background-size: cover;
+  background-position: center;
+}
+.showcase-image6{
+  width:100%;
+  height:100%;
+  background: url("images/smile.jpg") no-repeat fixed;
+  background-size: cover;
+  background-position: center;
+}
+.showcase-image7{
+  width:100%;
+  height:100%;
+  background: url("images/res-lady.jpg") no-repeat fixed;
+  background-size: cover;
+  background-position: center;
+}
+/* the about section */
+#about{
+  background: url("images/operation-room.jpg") no-repeat fixed 0 10px;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+}
+#about h2{
+  font-size: 2.5em;
+  color:#fff;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.5);
+}
+
+/* flex card */
+.card-container{
+max-width: 1000px;
+margin: 0 auto;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.card{
+  flex: 1;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 25px;
+  border-radius: 4px;
+  text-align: center;
+  display:flex;
+  flex-wrap: wrap;
+  color:#f1f1f1;
+}
+
+.card > * {
+  flex:1 1 100%;
+}
+.card h3{
+  padding: 5px;
+  background-color: rgba(255,255,255,0.6) ;
+  text-transform: uppercase;
+  color: #f7be16;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+.card ul{
+  margin:0;
+  padding:0;
+  list-style: none;
+}
+.card ul li{
+  border-bottom: 1px solid rgba(255,255,255, 0.5);
+  padding:10px;
+}
+.card ul li:last-child{
+  border: none;
+}
+.card p{
+  margin-bottom: 10px;
+}
+.card a{
+  text-decoration: none;
+  background-color: #004a7c;
+  color:#f9f9f9;
+  text-align: center;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 4px;
+}
