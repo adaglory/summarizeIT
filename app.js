@@ -168,18 +168,38 @@ app.post("/profile", async function(req,res){
 
 app.post("/summarize", async function(req,res){
     if (req.body) {
-        try {    
+        try {
+            let url = req.body.url    
             let text = req.body.text
+            if(text !== ""){
                 deepai.setApiKey('6d053c08-8a44-43eb-9d88-e7d44f577ec6');
                 var resp = await deepai.callStandardApi("summarization", {
                     text: text,
             });
-        
+        console.log(resp)
             res.render('index',{title: 'SummarizeIT', summary:resp.output, summarize:'true'})
+            }
+            if(url !== "") {
+                
+                reqUrl = 'http://api.meaningcloud.com/summarization-1.0?key=7c13bba3611b2cd5f4342f1fd9de1d46&url='+url+'&sentences= 10'
+                console.log(url)
+                request(reqUrl, function (error, response, body) {
+                  console.log('error:', error); // Print the error if one occurred
+                  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+                  console.log('body:', body); // Print the HTML for the Google homepage.
+                  if(body){
+                      console.log(response.body)
+                      jsonBody = JSON.parse(response.body)
+                    res.render('index',{title: 'SummarizeIT', summary:jsonBody.summary, summarize:'true'})
+                  }
+                  
+                });
+                
+            }
     
         }catch(err){ 
             
-                console.log(err)   
+                console.log(err);   
             
         }
     }
@@ -191,7 +211,7 @@ app.post("/upload", async function(req,res){
             let mySession = req.session;
             console.log(req.session)
             var form = new formidable.IncomingForm();
-            let validFiles = ['.pdf','.txt'];
+            let validFiles = ['.pdf','.txt','.docx','.doc'];
             
             form.parse(req, async function (err, fields, files) {
             console.log(files)
@@ -200,10 +220,11 @@ app.post("/upload", async function(req,res){
             if(!validFiles.includes(ext)){
                 res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, upload:'false', uploadMessage: 'Invalid upload file. Only pdf and txt formats are allowed'});
             }else{
-                var oldpath = files.doc.path;
+                var oldpath = files.doc.name;
+                console.log(files.doc);
                 // Example posting file picker input text (Browser only):
                 link = "https://www.thepolyglotdeveloper.com/2017/10/consume-remote-api-data-nodejs-application/"
-                url = 'http://api.meaningcloud.com/summarization-1.0?key=7c13bba3611b2cd5f4342f1fd9de1d46&url='+link+'&sentences=5'
+                url = 'http://api.meaningcloud.com/summarization-1.0?key=7c13bba3611b2cd5f4342f1fd9de1d46&doc='+oldpath
                 console.log(url)
                 request(url, function (error, response, body) {
                   console.log('error:', error); // Print the error if one occurred
