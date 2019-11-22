@@ -9,11 +9,11 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="public/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="css/mdb.min.css" rel="stylesheet">
+  <link href="public/css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="public/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -27,7 +27,7 @@
 
         <!-- Brand -->
         <a class="navbar-brand waves-effect" href="" target="_blank">
-          <img src="img/Group1.png">
+          <img src="public/img/Group1.png">
         </a>
 
         <!-- Collapse -->
@@ -53,7 +53,7 @@
           <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item">
                 <a href="signup.html" class="nav-link waves-effect" target="_blank">
-                    <button type="button" class="btn">SIGN UP</button>
+                    <button type="button" class="btn-signup">SIGN UP</button>
               </a>
             </li>
           </ul>
@@ -71,13 +71,14 @@
   <main class="mt-5 pt-5">
     <div class="container">
         <div class="header-text" >
-            <h2>Summarize all your articles at the click of a button</h2>
+            <h3>Summarize all your articles at the click of a button</h3>
           </div>
       <!--Section: Jumbotron-->
-      <section class="card blue-gradient wow fadeIn" id="intro">
+      <div class="row">
+      <div class="card blue-gradient wow fadeIn col-md-5" id="intro">
 
         <!-- Content -->
-        <div class="card-body text-white text-center py-5 px-5 my-5">
+        <div class="card-body text-white text-center py-3 px-2 my-2">
 
             <div class="form-group shadow-textarea">
                 <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="12" placeholder="Copy and paste text here to summarize"></textarea>
@@ -88,7 +89,8 @@
 
         </div>
         <!-- Content -->
-      </section>
+      </div>
+    </div>
       <!--Section: Jumbotron-->
 
       <!--Section: Cards-->
