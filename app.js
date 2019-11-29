@@ -31,9 +31,18 @@ app.get("/", function(req,res){
 
     res.render('index',{title: 'SummarizeIT'});
 });
-app.get("/pdf", function(req,res){
-    pdf.genpdf();
-});
+// define a route to download a file 
+app.get('/pdf/:file(*)',(req, res) => {
+    var file = req.params.file;
+    var fileLocation = path.join('./files',file);
+    console.log(fileLocation);
+    res.download(fileLocation, file); 
+    res.render('/')
+  });
+   
+  app.listen(8000,() => {
+    console.log(`application is running at: http://localhost:8000`);
+  });
 app.get("/signup", function(req,res){
     res.render('signup',{title: 'SummarizeIT- Signup'});
 });
@@ -181,7 +190,10 @@ app.post("/summarize", async function(req,res){
                     text: text,
             });
         console.log(resp)
-            res.render('index',{title: 'SummarizeIT', summary:resp.output, summarize:'true'})
+            let file = 'summarizeIT'+date.now();
+            let  body = resp.output;
+            pdf.genpdf(file, file, body );
+            res.render('index',{title: 'SummarizeIT', summary:resp.output, summarize:'true', fiilename:file})
             }
             if(url !== "") {
                 
