@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const User = require('./models/user.model');
+var fs = require('fs');
 const Uploads = require('./models/files.model');
 const token = require('./functions/token');
 const pdf = require('./functions/pdfGen');
@@ -68,9 +69,16 @@ app.get("/profile", function(req,res){
 app.get("/dashboard", async function(req,res){
     let mySession = req.session;
     if(mySession.email){
+        console.log(req.query)
         let myUploads = await Uploads.find({userid:mySession.userid});
         console.log(myUploads)
-        res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, files:myUploads});
+        rendObj = {title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, files:myUploads}
+       
+        if(req.query){
+            rendObj = {title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, files:myUploads, upload:req.query.upload, uploadMessage:req.query.message }
+            
+        }
+        res.render('dashboard',rendObj);
     }else{
         const query = querystring.stringify({message:'Login First',success:false});
                 res.redirect('/signin?' + query);
@@ -182,12 +190,13 @@ app.post("/summarize", async function(req,res){
         try {
             let url = req.body.url    
             let text = req.body.text
+            let sentence = req.body.sentence
             if(text !== ""){
                 deepai.setApiKey('6d053c08-8a44-43eb-9d88-e7d44f577ec6');
                 var resp = await deepai.callStandardApi("summarization", {
                     text: text,
             });
-        console.log(resp)
+            console.log(resp)
             let file = 'summarizeIT'+Date.now();
             let fUrl = file+'.pdf'
             let  body = resp.output;
@@ -196,7 +205,7 @@ app.post("/summarize", async function(req,res){
             }
             if(url !== "") {
                 
-                reqUrl = 'http://api.meaningcloud.com/summarization-1.0?key=7c13bba3611b2cd5f4342f1fd9de1d46&url='+url+'&sentences= 10'
+                reqUrl = 'http://api.meaningcloud.com/summarization-1.0?key=7c13bba3611b2cd5f4342f1fd9de1d46&url='+url+'&sentences='+sentence
                 console.log(url)
                 request(reqUrl, async function (error, response, body) {
                   console.log('error:', error); // Print the error if one occurred
@@ -204,9 +213,11 @@ app.post("/summarize", async function(req,res){
                   console.log('body:', body); // Print the HTML for the Google homepage.
                   if(body){
                       console.log(response.body)
+                      let file = 'summarizeIT'+Date.now();
+                      let fUrl = file+'.pdf'
                       jsonBody = JSON.parse(response.body)
-                      await pdf.genpdf(file, file, body );
-                      res.render('index',{title: 'SummarizeIT', summary:resp.output, summarize:'true', filename:url})
+                      await pdf.genpdf(file, file, jsonBody.summary );
+                      res.render('index',{title: 'SummarizeIT', summary:jsonBody.summary, summarize:'true', filename:fUrl})
                       }
                 });
             }
@@ -237,34 +248,36 @@ app.post("/upload", async function(req,res){
             }else{
                 var oldpath = files.file.path;
                 console.log(files.file);
-                // Example posting file picker input text (Browser only):
-                var options = {
-                    method: 'POST',
-                    url: 'https://api.meaningcloud.com/summarization-1.0',
-                    headers: {'content-type': 'application/x-www-form-urlencoded'},
-                    form: {
-                      key: 'c13bba3611b2cd5f4342f1fd9de1d46',
-                      doc: oldpath,
-                      sentences: 5
-                    }
-                  };
+                // // Example posting file picker input text (Browser only):
+                // var options = {
+                //     method: 'POST',
+                //     url: 'https://api.meaningcloud.com/summarization-1.0',
+                //     headers: {'content-type': 'application/x-www-form-urlencoded'},
+                //     form: {
+                //       key: 'c13bba3611b2cd5f4342f1fd9de1d46',
+                //       doc: oldpath,
+                //       sentences: 5
+                //     }
+                //   };
                   
-                  request(options, function (error, response, body) {
-                    if (error) throw new Error(error);
+                //   request(options, function (error, response, body) {
+                //     if (error) throw new Error(error);
                   
-                    console.log(body);
-                  });
+                //     console.log(body);
+                //   });
                
 
-                // var newpath = './files/' + files.doc.name;
-                // fs.rename(oldpath, newpath, async function (err) {
-                //     if (err) throw err;
-                //     let newFile = new Uploads;
-                //     newFile.userid = mySession.userid;
-                //     newFile.filename = files.doc.name;
-                //     await newFile.save()
-                //     res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, upload:'true', uploadMessage: 'Success.'});
-                // });
+                var newpath = './files/' + files.file.name;
+                fs.rename(oldpath, newpath, async function (err) {
+                    if (err) throw err;
+                    let newFile = new Uploads;
+                    newFile.userid = mySession.userid;
+                    newFile.filename = files.file.name;
+                    await newFile.save()
+                    const query = querystring.stringify({message:'Success',upload:'true'});
+                    res.redirect('/dashboard?' + query);
+
+                });
             }
             
         });

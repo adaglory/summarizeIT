@@ -23,8 +23,8 @@ module.exports = {
             doc.moveDown();
             doc.moveDown();
             doc.text(body, {
-                width: 410,
-                align: 'left',
+                width: 460,
+                align: 'justify',
                 
             });
 

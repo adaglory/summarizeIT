@@ -26,7 +26,7 @@
       <div class="container">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" href="" target="_blank">
+        <a class="navbar-brand waves-effect" href="/">
           <img src="img/Group1.png">
         </a>
 
@@ -85,7 +85,7 @@
         <div class="card-body text-white text-center py-5 px-5 my-5">
           <form action ='/summarize' method = "post">
             <div class="form-group shadow-textarea">
-              <p>You can either summarize a text string or a web URL by pasting in the provided boxes below. Note that you can't do both at the same time, hence it's either you are pasting a your text or you are pasting a url to be summarized. Enjoy!</p>
+              <p>You can either summarize a text string or a web URL by pasting in the provided boxes below. Note that you can't do both at the same time, hence it's either you are pasting a your text or you are pasting a url to be summarized. You can also enter the number of sentences to be returned in your summary. Enjoy!</p>
                 <%if(locals.summarize === 'true'){%>
                   <input style='width:100%; margin-bottom:10px;' name = 'url' class="form-control z-depth-1" placeholder="Enter URL of webpage to be summarized">
                   <textarea name="text" class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="18" placeholder="<%=summary%>"></textarea> 
@@ -94,7 +94,9 @@
                   </a>
                 <%}else{%>
                   <input style='width:100%; margin-bottom:10px;' name = 'url' class="form-control z-depth-1" placeholder="Enter URL of webpage to be summarized">
+                  <input type = "number" min="5" style='width:100%; margin-bottom:10px;;' name = 'sentence' class="form-control z-depth-1" placeholder="Number of Summary Sentence ">
                   <textarea name="text" class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="18" placeholder="Copy and paste text here to summarize"></textarea>
+                  
                   <button type ="submit"  name = "Summarize"  class="btn btn-outline-white btn-lg">
                       Summarize IT
                     </button>
