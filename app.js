@@ -5,12 +5,13 @@ const bodyParser = require('body-parser');
 const User = require('./models/user.model');
 const Uploads = require('./models/files.model');
 const token = require('./functions/token');
+const pdf = require('./functions/pdfGen');
 const querystring = require('querystring');    
 const deepai = require('deepai'); // OR include deepai.min.js as a script tag in your HTML
 deepai.setApiKey('6d053c08-8a44-43eb-9d88-e7d44f577ec6');
 var formidable = require('formidable');
 var request = require('request');
-var fs = require('fs');
+
 var path = require('path');
 
 const app = express();
@@ -27,9 +28,12 @@ require('./db/db');
 response = {};
 //get routes
 app.get("/", function(req,res){
+
     res.render('index',{title: 'SummarizeIT'});
 });
-
+app.get("/pdf", function(req,res){
+    pdf.genpdf();
+});
 app.get("/signup", function(req,res){
     res.render('signup',{title: 'SummarizeIT- Signup'});
 });
@@ -215,22 +219,30 @@ app.post("/upload", async function(req,res){
             
             form.parse(req, async function (err, fields, files) {
             console.log(files)
-            ext = path.extname(files.doc.name).toLowerCase();
+            ext = path.extname(files.file.name).toLowerCase();
             console.log(ext)
             if(!validFiles.includes(ext)){
                 res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, upload:'false', uploadMessage: 'Invalid upload file. Only pdf and txt formats are allowed'});
             }else{
-                var oldpath = files.doc.name;
-                console.log(files.doc);
+                var oldpath = files.file.path;
+                console.log(files.file);
                 // Example posting file picker input text (Browser only):
-                link = "https://www.thepolyglotdeveloper.com/2017/10/consume-remote-api-data-nodejs-application/"
-                url = 'http://api.meaningcloud.com/summarization-1.0?key=7c13bba3611b2cd5f4342f1fd9de1d46&doc='+oldpath
-                console.log(url)
-                request(url, function (error, response, body) {
-                  console.log('error:', error); // Print the error if one occurred
-                  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-                  console.log('body:', body); // Print the HTML for the Google homepage.
-                });
+                var options = {
+                    method: 'POST',
+                    url: 'https://api.meaningcloud.com/summarization-1.0',
+                    headers: {'content-type': 'application/x-www-form-urlencoded'},
+                    form: {
+                      key: 'c13bba3611b2cd5f4342f1fd9de1d46',
+                      doc: oldpath,
+                      sentences: 5
+                    }
+                  };
+                  
+                  request(options, function (error, response, body) {
+                    if (error) throw new Error(error);
+                  
+                    console.log(body);
+                  });
                
 
                 // var newpath = './files/' + files.doc.name;
