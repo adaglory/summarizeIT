@@ -32,17 +32,15 @@ app.get("/", function(req,res){
     res.render('index',{title: 'SummarizeIT'});
 });
 // define a route to download a file 
-app.get('/pdf/:file(*)',(req, res) => {
+app.get('/pdf/:file',(req, res) => {
+    console.log(req.params.file)
     var file = req.params.file;
     var fileLocation = path.join('./files',file);
     console.log(fileLocation);
     res.download(fileLocation, file); 
-    res.render('/')
+    // res.redirect('index');
   });
    
-  app.listen(8000,() => {
-    console.log(`application is running at: http://localhost:8000`);
-  });
 app.get("/signup", function(req,res){
     res.render('signup',{title: 'SummarizeIT- Signup'});
 });
@@ -190,28 +188,29 @@ app.post("/summarize", async function(req,res){
                     text: text,
             });
         console.log(resp)
-            let file = 'summarizeIT'+date.now();
+            let file = 'summarizeIT'+Date.now();
+            let fUrl = file+'.pdf'
             let  body = resp.output;
-            pdf.genpdf(file, file, body );
-            res.render('index',{title: 'SummarizeIT', summary:resp.output, summarize:'true', fiilename:file})
+            await pdf.genpdf(file, file, body );
+            res.render('index',{title: 'SummarizeIT', summary:resp.output, summarize:'true', filename:fUrl})
             }
             if(url !== "") {
                 
                 reqUrl = 'http://api.meaningcloud.com/summarization-1.0?key=7c13bba3611b2cd5f4342f1fd9de1d46&url='+url+'&sentences= 10'
                 console.log(url)
-                request(reqUrl, function (error, response, body) {
+                request(reqUrl, async function (error, response, body) {
                   console.log('error:', error); // Print the error if one occurred
                   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
                   console.log('body:', body); // Print the HTML for the Google homepage.
                   if(body){
                       console.log(response.body)
                       jsonBody = JSON.parse(response.body)
-                    res.render('index',{title: 'SummarizeIT', summary:jsonBody.summary, summarize:'true'})
-                  }
-                  
+                      await pdf.genpdf(file, file, body );
+                      res.render('index',{title: 'SummarizeIT', summary:resp.output, summarize:'true', filename:url})
+                      }
                 });
-                
             }
+            
     
         }catch(err){ 
             
