@@ -165,8 +165,8 @@
                                             <% for(let i = 0; i < files.length; i++) { %>
                                                 <tr>
                                                     <td><%= i+1 %></td>
-                                                    <td><%= files[i].filename %></td> 
-                                                    <td>summarize</td>
+                                                    <td><%= files[i].displayname %></td> 
+                                                    <td><a href="/sumupload/<%= files[i].filename %>">Summarize</a></td>
                                                 </tr>
                                                 <% } %>
                                     </tbody>

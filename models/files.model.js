@@ -23,6 +23,11 @@ let uploads = new Schema({
         required: true,
         max: 100
     },
+    displayname:{
+        type: String,
+        required: true,
+        max: 100
+    },
     
     //status of 
     summarized:{

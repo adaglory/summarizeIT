@@ -12,6 +12,8 @@ const deepai = require('deepai'); // OR include deepai.min.js as a script tag in
 deepai.setApiKey('6d053c08-8a44-43eb-9d88-e7d44f577ec6');
 var formidable = require('formidable');
 var request = require('request');
+const pdfParse = require('pdf-parse');
+
 
 var path = require('path');
 
@@ -79,6 +81,47 @@ app.get("/dashboard", async function(req,res){
             
         }
         res.render('dashboard',rendObj);
+    }else{
+        const query = querystring.stringify({message:'Login First',success:false});
+                res.redirect('/signin?' + query);
+    }
+    
+});
+
+app.get("/sumupload/:filename", async function(req,res){
+    let mySession = req.session;
+    if(mySession.email){
+        console.log(req.params.filename)
+        let file = req.params.filename;
+         
+        let dataBuffer = fs.readFileSync('files/' + file);
+         
+        pdfParse(dataBuffer).then(async function(data) {
+         
+            // number of pages
+            console.log(data.numpages);
+            // number of rendered pages
+            console.log(data.numrender);
+            // PDF info
+            console.log(data.info);
+            // PDF metadata
+            console.log(data.metadata); 
+            // PDF.js version
+            // check https://mozilla.github.io/pdf.js/getting_started/
+            console.log(data.version);
+            // PDF text
+            console.log(data.text); 
+
+            deepai.setApiKey('6d053c08-8a44-43eb-9d88-e7d44f577ec6');
+                var resp = await deepai.callStandardApi("summarization", {
+                    text: data.text,
+            });
+            console.log(resp)
+            
+            
+                
+        });
+        
     }else{
         const query = querystring.stringify({message:'Login First',success:false});
                 res.redirect('/signin?' + query);
@@ -237,7 +280,7 @@ app.post("/upload", async function(req,res){
             let mySession = req.session;
             console.log(req.session)
             var form = new formidable.IncomingForm();
-            let validFiles = ['.pdf','.txt','.docx','.doc'];
+            let validFiles = ['.pdf'];
             
             form.parse(req, async function (err, fields, files) {
             console.log(files)
@@ -248,14 +291,14 @@ app.post("/upload", async function(req,res){
             }else{
                 var oldpath = files.file.path;
                 console.log(files.file);
+                
                 // // Example posting file picker input text (Browser only):
                 // var options = {
                 //     method: 'POST',
                 //     url: 'https://api.meaningcloud.com/summarization-1.0',
-                //     headers: {'content-type': 'application/x-www-form-urlencoded'},
+                //     headers: {'content-type': 'multipart/form-data'},
                 //     form: {
                 //       key: 'c13bba3611b2cd5f4342f1fd9de1d46',
-                //       doc: oldpath,
                 //       sentences: 5
                 //     }
                 //   };
@@ -265,14 +308,14 @@ app.post("/upload", async function(req,res){
                   
                 //     console.log(body);
                 //   });
-               
-
-                var newpath = './files/' + files.file.name;
+                 let newfilename = mySession.userid + Date.now();
+                 let newpath = './files/' + newfilename + ext;
                 fs.rename(oldpath, newpath, async function (err) {
                     if (err) throw err;
                     let newFile = new Uploads;
                     newFile.userid = mySession.userid;
-                    newFile.filename = files.file.name;
+                    newFile.displayname = files.file.name;
+                    newFile.filename = newfilename + ext;
                     await newFile.save()
                     const query = querystring.stringify({message:'Success',upload:'true'});
                     res.redirect('/dashboard?' + query);
