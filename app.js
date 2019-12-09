@@ -71,9 +71,8 @@ app.get("/profile", function(req,res){
 app.get("/dashboard", async function(req,res){
     let mySession = req.session;
     if(mySession.email){
-        console.log(req.query)
+        
         let myUploads = await Uploads.find({userid:mySession.userid});
-        console.log(myUploads)
         rendObj = {title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, files:myUploads}
        
         if(req.query){
@@ -87,12 +86,17 @@ app.get("/dashboard", async function(req,res){
     }
     
 });
+// app.get("/sumupload", async function(req,res){
+//     res.render('index',{title: 'SummarizeIT'}); 
 
-app.get("/sumupload/:filename", async function(req,res){
+    
+    
+// });
+app.get("/sumupload", async function(req,res){
     let mySession = req.session;
     if(mySession.email){
-        console.log(req.params.filename)
-        let file = req.params.filename;
+        console.log(req.query)
+        let file = req.query.filename;
          
         let dataBuffer = fs.readFileSync('files/' + file);
          
@@ -117,10 +121,16 @@ app.get("/sumupload/:filename", async function(req,res){
                     text: data.text,
             });
             console.log(resp)
-            
-            
+            const summary = resp.output;
+            const summarySentenceCase = summary.charAt(0).toUpperCase() + summary.slice(1)
+            respObj = {title: 'SummarizeIT- Summary', username: mySession.username,summary:summarySentenceCase}
+            res.render('summary', respObj)
+            // let query = querystring.stringify({title: 'SummarizeIT- Summary', username: mySession.username,summary:resp.output});
+            // res.redirect('/summary?' + query);
                 
         });
+        
+        
         
     }else{
         const query = querystring.stringify({message:'Login First',success:false});
@@ -133,6 +143,21 @@ app.get("/sumupload/:filename", async function(req,res){
     
 });
 //post routes
+    app.get("/summary", async function(req,res){
+        let mySession = req.session;
+        if(mySession.email){
+            console.log(req.query)
+            if(req.query){
+                rendObj = {title: 'SummarizeIT- Summary', summary:req.query.summary}
+                res.render('summary',rendObj);
+            }
+            
+        }else{
+            const query = querystring.stringify({message:'Login First',success:false});
+                    res.redirect('/signin?' + query);
+        }
+        
+    });
 app.post("/signup", async function(req,res){
     if(req.body){
         try{

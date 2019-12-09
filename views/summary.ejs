@@ -111,7 +111,7 @@
         <!-- ============================================================== -->
         <div id="page-wrapper">
             <div class="container-fluid">
-                <div class="row bg-title">
+                <!-- <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">Dashboard</h4> </div>
                         <form action="/upload" method="post" enctype="multipart/form-data">
@@ -132,47 +132,20 @@
                         
                         </div>
                 </form>
-                    <!-- /.col-lg-12 -->
-                </div>
+                    
+                </div> -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
-                            <%if(locals.upload === 'true'){%>
-                                    <div class="alert alert-success">
-                                        <strong><%=uploadMessage %></strong>
-                                    </div> 
-                                  <%}else if(locals.upload === 'false'){%>
-                                    <div class="alert alert-danger">
-                                      <strong><%=uploadMessage %></strong>
-                                  </div>
-                                  <%}%>
-                            <h3 class="box-title">Document History</h3> 
-                            <form class="example" action="">
-                                <input type="text" placeholder="Search.." name="search">
-                                <button type="submit"><i class="fa fa-search"></i></button>
-                              </form>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class="table-head">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Title</th>
-                                            <th>Action</th>
-                                            
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                            <% for(let i = 0; i < files.length; i++) { %>
-                                                <tr>
-                                                    <td><%= i+1 %></td>
-                                                    <td><%= files[i].displayname %></td> 
-                                                    <!-- <td><a href='/sumupload'>Summarize</a></td> -->
-                                                    <td><a href='/sumupload?filename=<%= files[i].filename %>'>Summarize</a></td>
-                                                </tr>
-                                                <% } %>
-                                    </tbody>
-                                </table>
-                            </div>
+                            
+                                <div class="white-box">
+                                    <h3>Summary Result</h3>
+                                    <p style = "text-align:justify;">
+                                    <%if(locals.summary){%>
+                                        <%= summary %>
+                                      <%}%>
+                                    </p>
+                                </div>
                         </div>
                             
                     </div>
