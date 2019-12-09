@@ -312,7 +312,7 @@ app.post("/upload", async function(req,res){
             ext = path.extname(files.file.name).toLowerCase();
             console.log(ext)
             if(!validFiles.includes(ext)){
-                res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, upload:'false', uploadMessage: 'Invalid upload file. Only pdf and txt formats are allowed'});
+                res.render('dashboard',{title: 'SummarizeIT- Dashboard',username: mySession.username, email: mySession.email, upload:'false', uploadMessage: 'Invalid upload file. Only pdf formats are allowed'});
             }else{
                 var oldpath = files.file.path;
                 console.log(files.file);
