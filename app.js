@@ -317,35 +317,46 @@ app.post("/upload", async function(req,res){
                 var oldpath = files.file.path;
                 console.log(files.file);
                 
-                // // Example posting file picker input text (Browser only):
-                // var options = {
-                //     method: 'POST',
-                //     url: 'https://api.meaningcloud.com/summarization-1.0',
-                //     headers: {'content-type': 'multipart/form-data'},
-                //     form: {
-                //       key: 'c13bba3611b2cd5f4342f1fd9de1d46',
-                //       sentences: 5
-                //     }
-                //   };
-                  
-                //   request(options, function (error, response, body) {
-                //     if (error) throw new Error(error);
-                  
-                //     console.log(body);
-                //   });
+                
                  let newfilename = mySession.userid + Date.now();
                  let newpath = './files/' + newfilename + ext;
-                fs.rename(oldpath, newpath, async function (err) {
-                    if (err) throw err;
-                    let newFile = new Uploads;
-                    newFile.userid = mySession.userid;
-                    newFile.displayname = files.file.name;
-                    newFile.filename = newfilename + ext;
-                    await newFile.save()
-                    const query = querystring.stringify({message:'Success',upload:'true'});
-                    res.redirect('/dashboard?' + query);
+                 // Read the file
+        fs.readFile(oldpath, function (err, data) {
+            if (err) throw err;
+            console.log('File read!');
 
-                });
+            // Write the file
+            fs.writeFile(newpath, data, async function (err) {
+                if (err) throw err;
+                console.log('File written!');
+                let newFile = new Uploads;
+                newFile.userid = mySession.userid;
+                newFile.displayname = files.file.name;
+                newFile.filename = newfilename + ext;
+                await newFile.save()
+                const query = querystring.stringify({message:'Success',upload:'true'});
+                res.redirect('/dashboard?' + query);
+                
+            });
+
+            // Delete the file
+            fs.unlink(oldpath, function (err) {
+                if (err) throw err;
+                console.log('File deleted!');
+                
+            });
+        });
+                // fs.rename(oldpath, newpath, async function (err) {
+                //     if (err) throw err;
+                //     let newFile = new Uploads;
+                //     newFile.userid = mySession.userid;
+                //     newFile.displayname = files.file.name;
+                //     newFile.filename = newfilename + ext;
+                //     await newFile.save()
+                //     const query = querystring.stringify({message:'Success',upload:'true'});
+                //     res.redirect('/dashboard?' + query);
+
+                // });
             }
             
         });
