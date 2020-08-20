@@ -12,7 +12,7 @@
   },
   "author": "Ajiboye Abraham",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "connect-redis": "^4.0.3",
     "deepai": "^1.0.15",
